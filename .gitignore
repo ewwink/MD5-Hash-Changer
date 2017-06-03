@@ -17,6 +17,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+MD5HashChanger/bin
+MD5HashChanger/obj
+*.exe
 # =========================
 # Operating System Files
 # =========================
