@@ -101,13 +101,13 @@ namespace MD5_Hash_Changer
                     break;
                 }
                 int num = random.Next(2, 7);
-                byte[] array = new byte[num];
+                byte[] extraByte = new byte[num];
                 for (int j = 0; j < num; j++)
                 {
-                    array[j] = (byte)0;
+                    extraByte[j] = (byte)0;
                 }
-                bool flag = new FileInfo(fileNames[i]).Length == 0L;
-                if (flag)
+                long fileSize = new FileInfo(fileNames[i]).Length;
+                if (fileSize == 0L)
                 {
                     this.Invoke((MethodInvoker)delegate()
                     {
@@ -118,27 +118,29 @@ namespace MD5_Hash_Changer
                 {
                     using (FileStream fileStream = new FileStream(fileNames[i], FileMode.Append))
                     {
-                        fileStream.Write(array, 0, array.Length);
+                        fileStream.Write(extraByte, 0, extraByte.Length);
                     }
+                    int bufferSize = fileSize > 1048576L ? 1048576 : 4096;
+                    string md5hash = "";
                     using (MD5 md = MD5.Create())
                     {
-                        using (FileStream fileStream2 = File.OpenRead(fileNames[i]))
+                        using (FileStream fileStream2 = new FileStream(fileNames[i], FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize))
                         {
-                            string value = BitConverter.ToString(md.ComputeHash(fileStream2)).Replace("-", "");
-                            this.Invoke((MethodInvoker)delegate()
-                            {
-                                bool flag2 = this.dgvMD5.Rows[i].Cells[2].Value.ToString() != "";
-                                if (flag2)
-                                {
-                                    this.dgvMD5.Rows[i].Cells[1].Value = this.dgvMD5.Rows[i].Cells[2].Value;
-                                }
-                                this.labelItem.Text = (i + 1).ToString();
-                                this.progressBarStatus.Value = i + 1;
-                                this.dgvMD5.Rows[i].Cells[2].Value = value;
-                                this.dgvMD5.Rows[i].Cells[3].Value = "OK";
-                            });
+                            md5hash = BitConverter.ToString(md.ComputeHash(fileStream2)).Replace("-", "");
                         }
                     }
+                    this.Invoke((MethodInvoker)delegate()
+                    {
+                        bool flag2 = this.dgvMD5.Rows[i].Cells[2].Value.ToString() != "";
+                        if (flag2)
+                        {
+                            this.dgvMD5.Rows[i].Cells[1].Value = this.dgvMD5.Rows[i].Cells[2].Value;
+                        }
+                        this.labelItem.Text = (i + 1).ToString();
+                        this.progressBarStatus.Value = i + 1;
+                        this.dgvMD5.Rows[i].Cells[2].Value = md5hash;
+                        this.dgvMD5.Rows[i].Cells[3].Value = "OK";
+                    });
                 }
             }
             this.Invoke((MethodInvoker)delegate()
@@ -154,16 +156,18 @@ namespace MD5_Hash_Changer
             foreach (string name in fileNames)
             {
                 string md5hash = "";
+                long fileSize = new FileInfo(name).Length;
+                int bufferSize = fileSize > 1048576L ? 1048576 : 4096;
                 using (MD5 md = MD5.Create())
                 {
-                    using (FileStream fileStream = File.OpenRead(name))
+                    using (FileStream fileStream = new FileStream(name, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize))
                     {
                         md5hash = BitConverter.ToString(md.ComputeHash(fileStream)).Replace("-", "");
                     }
                 }
+                index++;
                 this.Invoke((MethodInvoker)delegate()
                 {
-                    index++;
                     this.labelItem.Text = index.ToString();
                     this.progressBarStatus.Value = index;
                     this.dgvMD5.Rows.Add(new object[] { name, md5hash, "", "idle" });
