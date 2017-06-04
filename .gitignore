@@ -20,6 +20,7 @@ $RECYCLE.BIN/
 MD5HashChanger/bin
 MD5HashChanger/obj
 *.exe
+testFile
 # =========================
 # Operating System Files
 # =========================

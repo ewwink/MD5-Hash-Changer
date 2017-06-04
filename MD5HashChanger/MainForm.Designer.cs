@@ -28,77 +28,79 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.Button btnAddFiles;
-            System.Windows.Forms.Button btnStartMD5;
-            System.Windows.Forms.Button btnRemoveAll;
-            System.Windows.Forms.Button btnRemoveSelected;
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            this.btnAddFiles = new System.Windows.Forms.Button();
+            this.btnStartMD5 = new System.Windows.Forms.Button();
+            this.btnRemoveAll = new System.Windows.Forms.Button();
+            this.btnRemoveSelected = new System.Windows.Forms.Button();
             this.dgvMD5 = new System.Windows.Forms.DataGridView();
             this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.oldMD5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.newMD5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenudgvMD5 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuCopyRow = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuExportToCSV = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.progressBarStatus = new System.Windows.Forms.ProgressBar();
             this.labelItem = new System.Windows.Forms.Label();
             this.labelTotalItem = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panelAction = new System.Windows.Forms.Panel();
-            btnAddFiles = new System.Windows.Forms.Button();
-            btnStartMD5 = new System.Windows.Forms.Button();
-            btnRemoveAll = new System.Windows.Forms.Button();
-            btnRemoveSelected = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMD5)).BeginInit();
+            this.contextMenudgvMD5.SuspendLayout();
             this.panelAction.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddFiles
             // 
-            btnAddFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            btnAddFiles.Location = new System.Drawing.Point(8, 13);
-            btnAddFiles.Name = "btnAddFiles";
-            btnAddFiles.Size = new System.Drawing.Size(101, 35);
-            btnAddFiles.TabIndex = 1;
-            btnAddFiles.Text = "Add Files";
-            btnAddFiles.UseVisualStyleBackColor = true;
-            btnAddFiles.Click += new System.EventHandler(this.btnAddFiles_Click);
+            this.btnAddFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddFiles.Location = new System.Drawing.Point(8, 13);
+            this.btnAddFiles.Name = "btnAddFiles";
+            this.btnAddFiles.Size = new System.Drawing.Size(101, 35);
+            this.btnAddFiles.TabIndex = 1;
+            this.btnAddFiles.Text = "Add Files";
+            this.btnAddFiles.UseVisualStyleBackColor = true;
+            this.btnAddFiles.Click += new System.EventHandler(this.btnAddFiles_Click);
             // 
             // btnStartMD5
             // 
-            btnStartMD5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            btnStartMD5.Location = new System.Drawing.Point(115, 13);
-            btnStartMD5.Name = "btnStartMD5";
-            btnStartMD5.Size = new System.Drawing.Size(123, 35);
-            btnStartMD5.TabIndex = 2;
-            btnStartMD5.Text = "Start Change MD5";
-            btnStartMD5.UseVisualStyleBackColor = true;
-            btnStartMD5.Click += new System.EventHandler(this.btnStartMD5_Click);
+            this.btnStartMD5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStartMD5.Location = new System.Drawing.Point(115, 13);
+            this.btnStartMD5.Name = "btnStartMD5";
+            this.btnStartMD5.Size = new System.Drawing.Size(123, 35);
+            this.btnStartMD5.TabIndex = 2;
+            this.btnStartMD5.Text = "Start Change MD5";
+            this.btnStartMD5.UseVisualStyleBackColor = true;
+            this.btnStartMD5.Click += new System.EventHandler(this.btnStartMD5_Click);
             // 
             // btnRemoveAll
             // 
-            btnRemoveAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            btnRemoveAll.Location = new System.Drawing.Point(403, 13);
-            btnRemoveAll.Name = "btnRemoveAll";
-            btnRemoveAll.Size = new System.Drawing.Size(123, 35);
-            btnRemoveAll.TabIndex = 3;
-            btnRemoveAll.Text = "Remove All Files";
-            btnRemoveAll.UseVisualStyleBackColor = true;
-            btnRemoveAll.Click += new System.EventHandler(this.btnRemoveAll_Click);
+            this.btnRemoveAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveAll.Location = new System.Drawing.Point(403, 13);
+            this.btnRemoveAll.Name = "btnRemoveAll";
+            this.btnRemoveAll.Size = new System.Drawing.Size(123, 35);
+            this.btnRemoveAll.TabIndex = 3;
+            this.btnRemoveAll.Text = "Remove All Files";
+            this.btnRemoveAll.UseVisualStyleBackColor = true;
+            this.btnRemoveAll.Click += new System.EventHandler(this.btnRemoveAll_Click);
             // 
             // btnRemoveSelected
             // 
-            btnRemoveSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            btnRemoveSelected.Location = new System.Drawing.Point(244, 13);
-            btnRemoveSelected.Name = "btnRemoveSelected";
-            btnRemoveSelected.Size = new System.Drawing.Size(153, 35);
-            btnRemoveSelected.TabIndex = 4;
-            btnRemoveSelected.Text = "Remove Selected Files";
-            btnRemoveSelected.UseVisualStyleBackColor = true;
-            btnRemoveSelected.Click += new System.EventHandler(this.btnRemoveSelected_Click);
+            this.btnRemoveSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveSelected.Location = new System.Drawing.Point(244, 13);
+            this.btnRemoveSelected.Name = "btnRemoveSelected";
+            this.btnRemoveSelected.Size = new System.Drawing.Size(153, 35);
+            this.btnRemoveSelected.TabIndex = 4;
+            this.btnRemoveSelected.Text = "Remove Selected Files";
+            this.btnRemoveSelected.UseVisualStyleBackColor = true;
+            this.btnRemoveSelected.Click += new System.EventHandler(this.btnRemoveSelected_Click);
             // 
             // dgvMD5
             // 
@@ -129,6 +131,7 @@
             this.dgvMD5.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvMD5.Size = new System.Drawing.Size(814, 329);
             this.dgvMD5.TabIndex = 0;
+            this.dgvMD5.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvMD5_MouseClick);
             // 
             // FileName
             // 
@@ -137,6 +140,7 @@
             this.FileName.HeaderText = "File Name";
             this.FileName.MinimumWidth = 270;
             this.FileName.Name = "FileName";
+            this.FileName.ReadOnly = true;
             // 
             // oldMD5
             // 
@@ -147,6 +151,7 @@
             this.oldMD5.HeaderText = "Old MD5";
             this.oldMD5.MinimumWidth = 220;
             this.oldMD5.Name = "oldMD5";
+            this.oldMD5.ReadOnly = true;
             this.oldMD5.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.oldMD5.Width = 220;
             // 
@@ -159,6 +164,7 @@
             this.newMD5.HeaderText = "New MD5";
             this.newMD5.MinimumWidth = 220;
             this.newMD5.Name = "newMD5";
+            this.newMD5.ReadOnly = true;
             this.newMD5.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.newMD5.Width = 220;
             // 
@@ -169,8 +175,39 @@
             this.status.FillWeight = 36.9831F;
             this.status.HeaderText = "Status";
             this.status.Name = "status";
+            this.status.ReadOnly = true;
             this.status.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.status.Width = 75;
+            // 
+            // contextMenudgvMD5
+            // 
+            this.contextMenudgvMD5.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuCopyRow,
+            this.contextMenuExportToCSV,
+            this.contextMenuOpenFile});
+            this.contextMenudgvMD5.Name = "contextMenuDGVMD5";
+            this.contextMenudgvMD5.Size = new System.Drawing.Size(176, 70);
+            // 
+            // contextMenuCopyRow
+            // 
+            this.contextMenuCopyRow.Name = "contextMenuCopyRow";
+            this.contextMenuCopyRow.Size = new System.Drawing.Size(175, 22);
+            this.contextMenuCopyRow.Text = "Copy Selected Row";
+            this.contextMenuCopyRow.Click += new System.EventHandler(this.contextMenuCopyRow_Click);
+            // 
+            // contextMenuExportToCSV
+            // 
+            this.contextMenuExportToCSV.Name = "contextMenuExportToCSV";
+            this.contextMenuExportToCSV.Size = new System.Drawing.Size(175, 22);
+            this.contextMenuExportToCSV.Text = "Export All to .CSV";
+            this.contextMenuExportToCSV.Click += new System.EventHandler(this.contextMenuExportToCSV_Click);
+            // 
+            // contextMenuOpenFile
+            // 
+            this.contextMenuOpenFile.Name = "contextMenuOpenFile";
+            this.contextMenuOpenFile.Size = new System.Drawing.Size(175, 22);
+            this.contextMenuOpenFile.Text = "Open File";
+            this.contextMenuOpenFile.Click += new System.EventHandler(this.contextMenuOpenFile_Click);
             // 
             // progressBarStatus
             // 
@@ -219,13 +256,13 @@
             // 
             // panelAction
             // 
-            this.panelAction.Controls.Add(btnRemoveSelected);
+            this.panelAction.Controls.Add(this.btnRemoveSelected);
             this.panelAction.Controls.Add(this.label2);
-            this.panelAction.Controls.Add(btnAddFiles);
+            this.panelAction.Controls.Add(this.btnAddFiles);
             this.panelAction.Controls.Add(this.label1);
-            this.panelAction.Controls.Add(btnStartMD5);
+            this.panelAction.Controls.Add(this.btnStartMD5);
             this.panelAction.Controls.Add(this.labelTotalItem);
-            this.panelAction.Controls.Add(btnRemoveAll);
+            this.panelAction.Controls.Add(this.btnRemoveAll);
             this.panelAction.Controls.Add(this.labelItem);
             this.panelAction.Controls.Add(this.progressBarStatus);
             this.panelAction.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -245,6 +282,7 @@
             this.Name = "MainForm";
             this.Text = "MD5 Hash Changer";
             ((System.ComponentModel.ISupportInitialize)(this.dgvMD5)).EndInit();
+            this.contextMenudgvMD5.ResumeLayout(false);
             this.panelAction.ResumeLayout(false);
             this.panelAction.PerformLayout();
             this.ResumeLayout(false);
@@ -260,10 +298,18 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panelAction;
+        private System.Windows.Forms.ContextMenuStrip contextMenudgvMD5;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuCopyRow;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuOpenFile;
         private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn oldMD5;
         private System.Windows.Forms.DataGridViewTextBoxColumn newMD5;
         private System.Windows.Forms.DataGridViewTextBoxColumn status;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuExportToCSV;
+        private System.Windows.Forms.Button btnRemoveAll;
+        private System.Windows.Forms.Button btnRemoveSelected;
+        private System.Windows.Forms.Button btnStartMD5;
+        private System.Windows.Forms.Button btnAddFiles;
     }
 }
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Security.Cryptography;
 using System.Threading;
@@ -8,6 +10,9 @@ namespace MD5_Hash_Changer
 {
     public partial class MainForm : Form
     {
+        public int currentRowIndex = 0;
+        public bool running = false;
+
         public MainForm()
         {
             InitializeComponent();
@@ -33,31 +38,34 @@ namespace MD5_Hash_Changer
 
         private void btnRemoveAll_Click(object sender, EventArgs e)
         {
-            this.dgvMD5.Rows.Clear();
+            dgvMD5.Rows.Clear();
             labelItem.Text = "0";
             labelTotalItem.Text = "0";
         }
 
         private void btnRemoveSelected_Click(object sender, EventArgs e)
         {
-            foreach (object obj in this.dgvMD5.SelectedCells)
+            foreach (DataGridViewRow row in dgvMD5.SelectedRows)
             {
-                DataGridViewCell dataGridViewCell = (DataGridViewCell)obj;
-                bool selected = dataGridViewCell.Selected;
-                if (selected)
-                {
-                    this.dgvMD5.Rows.RemoveAt(dataGridViewCell.RowIndex);
-                }
+                dgvMD5.Rows.RemoveAt(row.Index);
             }
+            dgvMD5.ClearSelection();
             labelItem.Text = "0";
             labelTotalItem.Text = dgvMD5.RowCount.ToString();
         }
 
         private void btnStartMD5_Click(object sender, EventArgs e)
         {
+            if (btnStartMD5.Text == "Stop Change MD5")
+            {
+                btnStartMD5.Text = "Start Change MD5";
+                running = false;
+                return;
+            }
+            running = true;
             int totalFiles = dgvMD5.RowCount;
             string[] fileNames = new string[totalFiles];
-            for (int i = 0; i < dgvMD5.RowCount; i++)
+            for (int i = 0; i < totalFiles; i++)
             {
                 fileNames[i] = dgvMD5.Rows[i].Cells[0].Value.ToString();
             }
@@ -65,6 +73,8 @@ namespace MD5_Hash_Changer
             labelTotalItem.Text = totalFiles.ToString();
             progressBarStatus.Value = 0;
             progressBarStatus.Maximum = totalFiles;
+            btnStartMD5.Enabled = false;
+            btnStartMD5.Text = "Stop Change MD5";
             Thread t = new Thread(() => changeMD5(fileNames));
             t.IsBackground = true;
             t.Start();
@@ -73,8 +83,23 @@ namespace MD5_Hash_Changer
         private void changeMD5(string[] fileNames)
         {
             Random random = new Random();
+            Thread.Sleep(1000);
+            this.Invoke((MethodInvoker)delegate()
+            {
+                this.btnStartMD5.Enabled = true;
+            });
+
             for (int i = 0; i < fileNames.Length; i++)
             {
+                if (!running)
+                {
+                    this.Invoke((MethodInvoker)delegate()
+                    {
+                        this.btnStartMD5.Text = "Start Change MD5";
+                        running = false;
+                    });
+                    break;
+                }
                 int num = random.Next(2, 7);
                 byte[] array = new byte[num];
                 for (int j = 0; j < num; j++)
@@ -86,7 +111,7 @@ namespace MD5_Hash_Changer
                 {
                     this.Invoke((MethodInvoker)delegate()
                     {
-                        this.dgvMD5.Rows[i].Cells[3].Value = "EMPTY";
+                        this.dgvMD5.Rows[i].Cells[3].Value = "Empty";
                     });
                 }
                 else
@@ -116,6 +141,11 @@ namespace MD5_Hash_Changer
                     }
                 }
             }
+            this.Invoke((MethodInvoker)delegate()
+            {
+                this.btnStartMD5.Text = "Start Change MD5";
+                running = false;
+            });
         }
 
         private void checkMD5(string[] fileNames)
@@ -139,6 +169,65 @@ namespace MD5_Hash_Changer
                     this.dgvMD5.Rows.Add(new object[] { name, md5hash, "", "idle" });
                     this.dgvMD5.Rows[0].Selected = false;
                 });
+            }
+        }
+
+        private void contextMenuCopyRow_Click(object sender, EventArgs e)
+        {
+            string rowData = "";
+            for (int i = 0; i < dgvMD5.RowCount; i++)
+            {
+                var rows = dgvMD5.Rows[i];
+                if (rows.Selected)
+                {
+                    rowData += string.Format("{0}\t{1}\t{2}\r\n", rows.Cells[0].Value, rows.Cells[1].Value, rows.Cells[2].Value);
+                }
+            }
+            Clipboard.SetText(rowData);
+        }
+
+        private void contextMenuExportToCSV_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog savefile = new SaveFileDialog();
+            savefile.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+            if (savefile.ShowDialog() == DialogResult.OK)
+            {
+                string rowData = "";
+                for (int i = 0; i < dgvMD5.RowCount; i++)
+                {
+                    var rows = dgvMD5.Rows[i];
+                    rowData += string.Format("{0}\t{1}\t{2}\r\n", rows.Cells[0].Value, rows.Cells[1].Value, rows.Cells[2].Value);
+                }
+                File.WriteAllText(savefile.FileName, rowData);
+            }
+        }
+
+        private void contextMenuOpenFile_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(dgvMD5.Rows[currentRowIndex].Cells[0].Value.ToString());
+            }
+            catch { }
+        }
+
+        private void dgvMD5_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                currentRowIndex = dgvMD5.HitTest(e.X, e.Y).RowIndex;
+                if (currentRowIndex > -1 && dgvMD5.Rows[currentRowIndex].Selected)
+                {
+                    contextMenuCopyRow.Enabled = true;
+                    contextMenuOpenFile.Enabled = true;
+                    contextMenudgvMD5.Show(dgvMD5, new Point(e.X, e.Y));
+                }
+                else if (dgvMD5.RowCount > 0)
+                {
+                    contextMenuCopyRow.Enabled = false;
+                    contextMenuOpenFile.Enabled = false;
+                    contextMenudgvMD5.Show(dgvMD5, new Point(e.X, e.Y));
+                }
             }
         }
     }
