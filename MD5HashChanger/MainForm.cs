@@ -196,7 +196,7 @@ namespace MD5_Hash_Changer
                 for (int i = 0; i < dgvMD5.RowCount; i++)
                 {
                     var rows = dgvMD5.Rows[i];
-                    rowData += string.Format("{0}\t{1}\t{2}\r\n", rows.Cells[0].Value, rows.Cells[1].Value, rows.Cells[2].Value);
+                    rowData += string.Format("{0},{1},{2}\r\n", rows.Cells[0].Value, rows.Cells[1].Value, rows.Cells[2].Value);
                 }
                 File.WriteAllText(savefile.FileName, rowData);
             }
