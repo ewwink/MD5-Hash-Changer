@@ -38,13 +38,14 @@
             this.btnStartMD5 = new System.Windows.Forms.Button();
             this.btnRemoveAll = new System.Windows.Forms.Button();
             this.btnRemoveSelected = new System.Windows.Forms.Button();
-            this.dgvMD5 = new System.Windows.Forms.DataGridView();
+            this.dataGridFileMD5 = new System.Windows.Forms.DataGridView();
             this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.oldMD5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.newMD5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenudgvMD5 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuCopyRow = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuCopyRows = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuDeleteRows = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuExportToCSV = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.progressBarStatus = new System.Windows.Forms.ProgressBar();
@@ -53,7 +54,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panelAction = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMD5)).BeginInit();
+            this.btnAddFolder = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridFileMD5)).BeginInit();
             this.contextMenudgvMD5.SuspendLayout();
             this.panelAction.SuspendLayout();
             this.SuspendLayout();
@@ -61,9 +63,9 @@
             // btnAddFiles
             // 
             this.btnAddFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddFiles.Location = new System.Drawing.Point(8, 13);
+            this.btnAddFiles.Location = new System.Drawing.Point(136, 13);
             this.btnAddFiles.Name = "btnAddFiles";
-            this.btnAddFiles.Size = new System.Drawing.Size(101, 35);
+            this.btnAddFiles.Size = new System.Drawing.Size(68, 35);
             this.btnAddFiles.TabIndex = 1;
             this.btnAddFiles.Text = "Add Files";
             this.btnAddFiles.UseVisualStyleBackColor = true;
@@ -72,7 +74,7 @@
             // btnStartMD5
             // 
             this.btnStartMD5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStartMD5.Location = new System.Drawing.Point(115, 13);
+            this.btnStartMD5.Location = new System.Drawing.Point(7, 13);
             this.btnStartMD5.Name = "btnStartMD5";
             this.btnStartMD5.Size = new System.Drawing.Size(123, 35);
             this.btnStartMD5.TabIndex = 2;
@@ -83,9 +85,9 @@
             // btnRemoveAll
             // 
             this.btnRemoveAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveAll.Location = new System.Drawing.Point(403, 13);
+            this.btnRemoveAll.Location = new System.Drawing.Point(414, 13);
             this.btnRemoveAll.Name = "btnRemoveAll";
-            this.btnRemoveAll.Size = new System.Drawing.Size(123, 35);
+            this.btnRemoveAll.Size = new System.Drawing.Size(112, 35);
             this.btnRemoveAll.TabIndex = 3;
             this.btnRemoveAll.Text = "Remove All Files";
             this.btnRemoveAll.UseVisualStyleBackColor = true;
@@ -94,20 +96,20 @@
             // btnRemoveSelected
             // 
             this.btnRemoveSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveSelected.Location = new System.Drawing.Point(244, 13);
+            this.btnRemoveSelected.Location = new System.Drawing.Point(292, 13);
             this.btnRemoveSelected.Name = "btnRemoveSelected";
-            this.btnRemoveSelected.Size = new System.Drawing.Size(153, 35);
+            this.btnRemoveSelected.Size = new System.Drawing.Size(116, 35);
             this.btnRemoveSelected.TabIndex = 4;
-            this.btnRemoveSelected.Text = "Remove Selected Files";
+            this.btnRemoveSelected.Text = "Remove Selected";
             this.btnRemoveSelected.UseVisualStyleBackColor = true;
             this.btnRemoveSelected.Click += new System.EventHandler(this.btnRemoveSelected_Click);
             // 
-            // dgvMD5
+            // dataGridFileMD5
             // 
-            this.dgvMD5.AllowUserToAddRows = false;
-            this.dgvMD5.AllowUserToDeleteRows = false;
-            this.dgvMD5.AllowUserToResizeRows = false;
-            this.dgvMD5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dataGridFileMD5.AllowUserToAddRows = false;
+            this.dataGridFileMD5.AllowUserToDeleteRows = false;
+            this.dataGridFileMD5.AllowUserToResizeRows = false;
+            this.dataGridFileMD5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -117,21 +119,22 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvMD5.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvMD5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMD5.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridFileMD5.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridFileMD5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridFileMD5.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.FileName,
             this.oldMD5,
             this.newMD5,
             this.status});
-            this.dgvMD5.Location = new System.Drawing.Point(12, 12);
-            this.dgvMD5.Name = "dgvMD5";
-            this.dgvMD5.RowHeadersVisible = false;
-            this.dgvMD5.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvMD5.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMD5.Size = new System.Drawing.Size(814, 329);
-            this.dgvMD5.TabIndex = 0;
-            this.dgvMD5.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvMD5_MouseClick);
+            this.dataGridFileMD5.Location = new System.Drawing.Point(12, 12);
+            this.dataGridFileMD5.Name = "dataGridFileMD5";
+            this.dataGridFileMD5.RowHeadersVisible = false;
+            this.dataGridFileMD5.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridFileMD5.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridFileMD5.Size = new System.Drawing.Size(814, 329);
+            this.dataGridFileMD5.TabIndex = 0;
+            this.dataGridFileMD5.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridFileMD5_KeyUp);
+            this.dataGridFileMD5.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvMD5_MouseClick);
             // 
             // FileName
             // 
@@ -182,30 +185,38 @@
             // contextMenudgvMD5
             // 
             this.contextMenudgvMD5.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contextMenuCopyRow,
+            this.contextMenuCopyRows,
+            this.contextMenuDeleteRows,
             this.contextMenuExportToCSV,
             this.contextMenuOpenFile});
             this.contextMenudgvMD5.Name = "contextMenuDGVMD5";
-            this.contextMenudgvMD5.Size = new System.Drawing.Size(176, 70);
+            this.contextMenudgvMD5.Size = new System.Drawing.Size(186, 92);
             // 
-            // contextMenuCopyRow
+            // contextMenuCopyRows
             // 
-            this.contextMenuCopyRow.Name = "contextMenuCopyRow";
-            this.contextMenuCopyRow.Size = new System.Drawing.Size(175, 22);
-            this.contextMenuCopyRow.Text = "Copy Selected Row";
-            this.contextMenuCopyRow.Click += new System.EventHandler(this.contextMenuCopyRow_Click);
+            this.contextMenuCopyRows.Name = "contextMenuCopyRows";
+            this.contextMenuCopyRows.Size = new System.Drawing.Size(185, 22);
+            this.contextMenuCopyRows.Text = "Copy Selected Rows";
+            this.contextMenuCopyRows.Click += new System.EventHandler(this.contextMenuCopyRow_Click);
+            // 
+            // contextMenuDeleteRows
+            // 
+            this.contextMenuDeleteRows.Name = "contextMenuDeleteRows";
+            this.contextMenuDeleteRows.Size = new System.Drawing.Size(185, 22);
+            this.contextMenuDeleteRows.Text = "Delete Selected Rows";
+            this.contextMenuDeleteRows.Click += new System.EventHandler(this.deleteSelectedRowsToolStripMenuItem_Click);
             // 
             // contextMenuExportToCSV
             // 
             this.contextMenuExportToCSV.Name = "contextMenuExportToCSV";
-            this.contextMenuExportToCSV.Size = new System.Drawing.Size(175, 22);
+            this.contextMenuExportToCSV.Size = new System.Drawing.Size(185, 22);
             this.contextMenuExportToCSV.Text = "Export All to .CSV";
             this.contextMenuExportToCSV.Click += new System.EventHandler(this.contextMenuExportToCSV_Click);
             // 
             // contextMenuOpenFile
             // 
             this.contextMenuOpenFile.Name = "contextMenuOpenFile";
-            this.contextMenuOpenFile.Size = new System.Drawing.Size(175, 22);
+            this.contextMenuOpenFile.Size = new System.Drawing.Size(185, 22);
             this.contextMenuOpenFile.Text = "Open File";
             this.contextMenuOpenFile.Click += new System.EventHandler(this.contextMenuOpenFile_Click);
             // 
@@ -256,6 +267,7 @@
             // 
             // panelAction
             // 
+            this.panelAction.Controls.Add(this.btnAddFolder);
             this.panelAction.Controls.Add(this.btnRemoveSelected);
             this.panelAction.Controls.Add(this.label2);
             this.panelAction.Controls.Add(this.btnAddFiles);
@@ -271,17 +283,31 @@
             this.panelAction.Size = new System.Drawing.Size(835, 64);
             this.panelAction.TabIndex = 11;
             // 
+            // btnAddFolder
+            // 
+            this.btnAddFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddFolder.Location = new System.Drawing.Point(210, 13);
+            this.btnAddFolder.Name = "btnAddFolder";
+            this.btnAddFolder.Size = new System.Drawing.Size(76, 35);
+            this.btnAddFolder.TabIndex = 11;
+            this.btnAddFolder.Text = "Add Folder";
+            this.btnAddFolder.UseVisualStyleBackColor = true;
+            this.btnAddFolder.Click += new System.EventHandler(this.btnAddFolder_Click);
+            // 
             // MainForm
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(835, 406);
             this.Controls.Add(this.panelAction);
-            this.Controls.Add(this.dgvMD5);
+            this.Controls.Add(this.dataGridFileMD5);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "MD5 Hash Changer";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMD5)).EndInit();
+            this.Text = "MD5 Hash Changer V1.2";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridFileMD5)).EndInit();
             this.contextMenudgvMD5.ResumeLayout(false);
             this.panelAction.ResumeLayout(false);
             this.panelAction.PerformLayout();
@@ -291,7 +317,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgvMD5;
+        private System.Windows.Forms.DataGridView dataGridFileMD5;
         private System.Windows.Forms.ProgressBar progressBarStatus;
         private System.Windows.Forms.Label labelItem;
         private System.Windows.Forms.Label labelTotalItem;
@@ -299,7 +325,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panelAction;
         private System.Windows.Forms.ContextMenuStrip contextMenudgvMD5;
-        private System.Windows.Forms.ToolStripMenuItem contextMenuCopyRow;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuCopyRows;
         private System.Windows.Forms.ToolStripMenuItem contextMenuOpenFile;
         private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn oldMD5;
@@ -310,6 +336,8 @@
         private System.Windows.Forms.Button btnRemoveSelected;
         private System.Windows.Forms.Button btnStartMD5;
         private System.Windows.Forms.Button btnAddFiles;
+        private System.Windows.Forms.Button btnAddFolder;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuDeleteRows;
     }
 }
 
